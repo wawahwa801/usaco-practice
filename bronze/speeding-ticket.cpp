@@ -22,21 +22,27 @@ void setIO(string name = "") {
 }
 
 int main() { 
-    setIO(); 
-    int n,m, a=0;
+    setIO("speeding"); 
+    int n,m, a=0,b=0, res=0;
     cin>>n>>m;
 
-    vector<pi> v1(n,mp(0,0));
+    vector<pi> v1(n);
     vector<pi> v2(m);
-    for(int i=1;i<n+m;i++){
+    for(int i=0;i<n+m;i++){
         if(i<n) cin>>v1[i].f >> v1[i].s;
-        else cin>>v2[i].f >> v2[i].s;
+        else cin>>v2[i-n].f >> v2[i-n].s;
     }
     for(int i=0;i<m;i++){
         for(int j=0;j<n;j++){
-            
+            if(b+v1[j].f <= a+v2[i].f && b+v1[j].f > a)res = max(v2[i].s-v1[j].s, res);
+            else if(b < a+v2[i].f && b >= a)res = max(v2[i].s-v1[j].s, res);
+            else if(b+v1[j].f >= a+v2[i].f && b < a+v2[i].f) res = max(v2[i].s-v1[j].s, res);
+            b+=v1[j].f;
         }
+        b = 0;
+        a += v2[i].f;
     }
+    cout << res << endl;
 
 
 }
