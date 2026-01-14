@@ -22,21 +22,18 @@ void setIO(string name = "") {
 }
 
 int main() { 
-    setIO("blocks"); 
+    setIO(); 
     int n;
     cin>>n;
-    vi res(26);
-
-    vector<pair<string,string>> v(n);
-    for(int i=0;i<n;i++) {
-        cin>>v[i].first>>v[i].second;
-        vi place(26);
-        vi place2(26);
-        for(int j=0;j<v[i].first.size();j++) place[v[i].f[j]-'a']++; 
-        for(int j=0;j<v[i].second.size();j++) place2[v[i].s[j]-'a']++;
-        for(int j=0;j<26;j++) res[j] += max(place[j],place2[j]);
+    vector<pi> v(n);
+    int res=-1;
+    for(int i=0;i<n;i++) cin>>v[i].f;
+    for(int i=0;i<n;i++) cin>>v[i].s;
+    for(int i=0;i<n-1;i++){
+        for(int j=i+1;j<n;j++) {
+            int a = pow(v[i].f-v[j].f,2) + pow(v[i].s-v[j].s,2);
+            res = max(res, a);
+        }
     }
-
-    
-    for(auto a : res) cout << a << endl;
+    cout << res << endl;
 }
