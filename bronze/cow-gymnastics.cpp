@@ -40,9 +40,7 @@ int main() {
                     }
                 }
             }
-            if(b) {
-                res++;
-            }
+            if(b) res++;
         }
     }
     cout << res << endl;
