@@ -22,26 +22,26 @@ void setIO(string name = "") {
 }
 
 int main() { 
-    setIO("cownomics");
-    int n ,m, res=0;
-    cin>>n>>m;
-    
-    vector<string> spot(n);
-    vector<string> plain(n);
-    for(int i=0;i<n;i++) cin >> spot[i];
-    for(int i=0;i<n;i++) cin >> plain[i];
-    for(int i=0;i<m;i++){
-        bool b = true;
-        for(int j=0;j<n;j++){
-            for(int k=0;k<n;k++){
-                if(spot[j][i] == plain[k][i]){
-                    b = false;
-                    break;
-                }
-            }
-            
+    setIO("circlecross"); 
+    string s;
+    cin>>s;
+    int res =0;
+    vector<bool > v1(26,false);
+    for(int i=0;i<s.size();i++){
+        vector<bool> v(26, false);
+        if(v1[s[i]-'A']) continue;
+        v1[s[i]-'A'] = true;
+        for(int j=i+1;j<s.size();j++){
+            if(s[j] == s[i]) break;
+            if(v[s[j]-'A']) v[s[j]-'A'] =false;
+            else v[s[j]-'A'] = true;
         }
-        if(b) res++;
+        for(int j=0;j<26;j++){
+            if(v1[j]) continue;
+            if(v[j]) {
+                res++; 
+            }
+        }
     }
     cout << res << endl;
 }
