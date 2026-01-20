@@ -20,26 +20,23 @@ void setIO(string name = "") {
         freopen((name + ".out").c_str(), "w", stdout);
     }
 }
-int weight(int i, int j, vi v){
-    v.erase(v.begin()+i);
-    v.erase(v.begin()+j);
-    int res = 0;
-    for(int i=0;i<v.size();i+=2){
-        res += abs(v[i]-v[i+1]);
-    }
-    return res;
-}
+
 int main() { 
-    setIO(); 
-    int n, res = INT_MAX;
-    cin>>n;
-    vi v(n*2);
-    for(int i=0;i<n*2;i++) cin >> v[i];
-    sort(all(v));
-    for(int i=0;i<n*2-1;i++){
-        for(int j=i+1;j<n*2;j++){
-            res = min(res, weight(i,j,v));
-        }
+    setIO("bcount"); 
+    long long n,q, a, b;
+    cin>>n>>q;
+    vector<vector<long long>> v(n+1, vector<ll>(3));
+    for(int i = 1;i<n+1;i++){
+        cin>>a;
+        v[i][a-1]++;
+        v[i][0] += v[i-1][0];
+        v[i][1] += v[i-1][1];
+        v[i][2] += v[i-1][2];
     }
-    cout << res << endl;
+    for(int i=0;i<q;i++){
+        cin>> a >> b;
+        cout << v[b][0] - v[a-1][0] << " ";
+        cout << v[b][1] - v[a-1][1] << " ";
+        cout << v[b][2] - v[a-1][2] << endl;
+    }
 }
